@@ -30,7 +30,7 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-ink-100">
+    <div className="min-h-screen w-full bg-ink-100 dark:bg-ink-950 transition-colors duration-200">
       <div className="grid min-h-screen lg:grid-cols-2">
         {/* Brand panel */}
         <aside className="relative hidden overflow-hidden bg-ink-950 text-white lg:flex lg:flex-col lg:justify-between lg:p-10">
@@ -56,8 +56,8 @@ export function LoginPage() {
               Banking that moves at the speed of your life.
             </p>
             <p className="mt-4 text-white/70">
-              A modern digital banking experience — checking, savings, retirement, transfers, and
-              real-time fraud protection in one calm interface.
+              A modern digital banking experience — checking, savings, retirement, virtual card
+              controls, and real-time fraud protection in one calm interface.
             </p>
             <div className="mt-8 grid grid-cols-3 gap-4">
               {[
@@ -87,8 +87,10 @@ export function LoginPage() {
             </div>
 
             <div className="card p-7">
-              <h1 className="font-display text-2xl font-extrabold text-ink-900">Welcome back</h1>
-              <p className="mt-1 text-sm text-ink-500">
+              <h1 className="font-display text-2xl font-extrabold text-ink-900 dark:text-ink-100">
+                Welcome back
+              </h1>
+              <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">
                 Sign in to your Everstream account to continue.
               </p>
 
@@ -98,7 +100,7 @@ export function LoginPage() {
                     Username
                   </label>
                   <div className="relative">
-                    <User className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
+                    <User className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400 dark:text-ink-500" />
                     <input
                       id="username"
                       className="input pl-9"
@@ -115,7 +117,7 @@ export function LoginPage() {
                     Password
                   </label>
                   <div className="relative">
-                    <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
+                    <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400 dark:text-ink-500" />
                     <input
                       id="password"
                       type={showPw ? 'text' : 'password'}
@@ -128,7 +130,7 @@ export function LoginPage() {
                     <button
                       type="button"
                       onClick={() => setShowPw((s) => !s)}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-ink-400 hover:bg-ink-100 hover:text-ink-700"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-ink-400 hover:bg-ink-100 hover:text-ink-700 dark:hover:bg-ink-800 dark:hover:text-ink-200 cursor-pointer"
                       aria-label={showPw ? 'Hide password' : 'Show password'}
                     >
                       {showPw ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -137,46 +139,50 @@ export function LoginPage() {
                 </div>
 
                 {error && (
-                  <div className="flex items-start gap-2 rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700 ring-1 ring-rose-200">
+                  <div className="flex items-start gap-2 rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700 ring-1 ring-rose-200 dark:bg-rose-950/60 dark:text-rose-300 dark:ring-rose-900">
                     <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
                     <span>{error}</span>
                   </div>
                 )}
 
-                <button type="submit" className="btn-primary w-full" disabled={loading}>
+                <button type="submit" className="btn-primary w-full cursor-pointer" disabled={loading}>
                   {loading ? 'Signing in…' : 'Sign in'}
                   {!loading && <ArrowRight className="h-4 w-4" />}
                 </button>
               </form>
 
-              <div className="mt-6 rounded-xl border border-dashed border-ink-200 bg-ink-50/60 p-4">
+              <div className="mt-6 rounded-xl border border-dashed border-ink-200 bg-ink-50/60 p-4 dark:border-ink-800 dark:bg-ink-850/50">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-ink-500">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400">
                     Sample credentials
                   </p>
                   <button
                     onClick={fillSample}
-                    className="text-xs font-semibold text-brand-600 hover:text-brand-700"
+                    className="text-xs font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 cursor-pointer"
                   >
                     Autofill
                   </button>
                 </div>
                 <dl className="mt-2 space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <dt className="text-ink-500">Username</dt>
-                    <dd className="font-mono font-medium text-ink-800">{SAMPLE_CREDENTIALS.username}</dd>
+                    <dt className="text-ink-500 dark:text-ink-400">Username</dt>
+                    <dd className="font-mono font-medium text-ink-800 dark:text-ink-100">
+                      {SAMPLE_CREDENTIALS.username}
+                    </dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-ink-500">Password</dt>
-                    <dd className="font-mono font-medium text-ink-800">{SAMPLE_CREDENTIALS.password}</dd>
+                    <dt className="text-ink-500 dark:text-ink-400">Password</dt>
+                    <dd className="font-mono font-medium text-ink-800 dark:text-ink-100">
+                      {SAMPLE_CREDENTIALS.password}
+                    </dd>
                   </div>
                 </dl>
               </div>
             </div>
 
-            <p className="mt-6 text-center text-xs leading-relaxed text-ink-400">
-              Everstream Bank is a fictional product. No real banking, authentication, or payment
-              processing occurs. Do not enter real credentials.
+            <p className="mt-6 text-center text-xs leading-relaxed text-ink-400 dark:text-ink-500">
+              Everstream Bank is a simulated digital banking experience. No real credentials or funds
+              are processed.
             </p>
           </div>
         </main>

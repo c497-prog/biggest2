@@ -1,18 +1,21 @@
 import { useMemo, useState } from 'react';
-import { Search, Filter, X, Download } from 'lucide-react';
+import { Search, Filter, X, Download, FileSpreadsheet } from 'lucide-react';
 import { useBank } from '@/context/BankContext';
 import { fmtMoney } from '@/lib/format';
 import { TransactionRow } from '@/components/TransactionRow';
-import type { TransactionStatus } from '@/lib/types';
+import { TransactionModal } from '@/components/TransactionModal';
+import type { Transaction, TransactionStatus } from '@/lib/types';
 
 const STATUSES: TransactionStatus[] = ['Completed', 'Pending', 'Failed'];
 
 export function TransactionsView() {
-  const { state } = useBank();
+  const { state, privacyMode } = useBank();
   const [query, setQuery] = useState('');
   const [accountFilter, setAccountFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<TransactionStatus | 'all'>('all');
   const [kindFilter, setKindFilter] = useState<'all' | 'credit' | 'debit'>('all');
+  const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
+  const [exported, setExported] = useState(false);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -38,17 +41,76 @@ export function TransactionsView() {
     setKindFilter('all');
   };
 
+  const exportCsv = () => {
+    if (filtered.length === 0) return;
+    const headers = [
+      'Transaction ID',
+      'Date',
+      'Description',
+      'Merchant',
+      'Category',
+      'Account',
+      'Amount ($)',
+      'Type',
+      'Status',
+    ];
+    const rows = filtered.map((t) => {
+      const acc = state.accounts.find((a) => a.id === t.accountId);
+      const accName = acc ? `${acc.name} (${acc.number})` : t.accountId;
+      return [
+        `"${t.id}"`,
+        `"${t.date}"`,
+        `"${t.description.replace(/"/g, '""')}"`,
+        `"${t.merchant.replace(/"/g, '""')}"`,
+        `"${t.category.replace(/"/g, '""')}"`,
+        `"${accName.replace(/"/g, '""')}"`,
+        t.amount.toFixed(2),
+        t.kind,
+        t.status,
+      ].join(',');
+    });
+
+    const csvContent = [headers.join(','), ...rows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `everstream-transactions-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    setExported(true);
+    setTimeout(() => setExported(false), 2000);
+  };
+
+  const selectedAccount = useMemo(() => {
+    if (!selectedTx) return undefined;
+    return state.accounts.find((a) => a.id === selectedTx.accountId);
+  }, [selectedTx, state.accounts]);
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-display text-2xl font-extrabold text-ink-900">Transactions</h1>
-          <p className="mt-1 text-sm text-ink-500">
-            {filtered.length} of {state.transactions.length} records
+          <h1 className="font-display text-2xl font-extrabold text-ink-900 dark:text-ink-100">Transactions</h1>
+          <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">
+            {filtered.length} of {state.transactions.length} records · Click any row for details
           </p>
         </div>
-        <button className="btn-outline self-start sm:self-auto" disabled title="Export is not enabled">
-          <Download className="h-4 w-4" /> Export
+        <button
+          onClick={exportCsv}
+          disabled={filtered.length === 0}
+          className="btn-outline self-start sm:self-auto cursor-pointer"
+          title={`Download ${filtered.length} transactions as CSV`}
+        >
+          {exported ? (
+            <FileSpreadsheet className="h-4 w-4 text-emerald-600" />
+          ) : (
+            <Download className="h-4 w-4" />
+          )}
+          {exported ? 'Downloaded!' : `Export CSV (${filtered.length})`}
         </button>
       </div>
 
@@ -111,19 +173,19 @@ export function TransactionsView() {
       <div className="card overflow-hidden">
         {filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-ink-100 text-ink-400">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-ink-100 text-ink-400 dark:bg-ink-800 dark:text-ink-500">
               <Filter className="h-6 w-6" />
             </span>
-            <p className="mt-4 text-sm font-semibold text-ink-700">No transactions found</p>
-            <p className="mt-1 text-sm text-ink-400">Try adjusting your search or filters.</p>
+            <p className="mt-4 text-sm font-semibold text-ink-700 dark:text-ink-200">No transactions found</p>
+            <p className="mt-1 text-sm text-ink-400 dark:text-ink-500">Try adjusting your search or filters.</p>
             <button onClick={clearFilters} className="btn-outline mt-4">
               Reset filters
             </button>
           </div>
         ) : (
-          <div className="max-h-[70vh] overflow-y-auto scrollbar-thin divide-y divide-ink-100">
+          <div className="max-h-[70vh] overflow-y-auto scrollbar-thin divide-y divide-ink-100 dark:divide-ink-800">
             {filtered.map((t) => (
-              <TransactionRow key={t.id} tx={t} />
+              <TransactionRow key={t.id} tx={t} onSelect={setSelectedTx} />
             ))}
           </div>
         )}
@@ -132,8 +194,22 @@ export function TransactionsView() {
       {/* Totals */}
       {filtered.length > 0 && (
         <div className="card grid gap-4 p-5 sm:grid-cols-3">
-          <Stat label="Money in" value={fmtMoney(filtered.filter((t) => t.kind === 'credit').reduce((s, t) => s + t.amount, 0))} tone="emerald" />
-          <Stat label="Money out" value={fmtMoney(filtered.filter((t) => t.kind === 'debit').reduce((s, t) => s + t.amount, 0))} tone="ink" />
+          <Stat
+            label="Money in"
+            value={fmtMoney(
+              filtered.filter((t) => t.kind === 'credit').reduce((s, t) => s + t.amount, 0),
+            )}
+            tone="emerald"
+            blurred={privacyMode}
+          />
+          <Stat
+            label="Money out"
+            value={fmtMoney(
+              filtered.filter((t) => t.kind === 'debit').reduce((s, t) => s + t.amount, 0),
+            )}
+            tone="ink"
+            blurred={privacyMode}
+          />
           <Stat
             label="Net"
             value={fmtMoney(
@@ -142,9 +218,17 @@ export function TransactionsView() {
               { signed: true },
             )}
             tone="brand"
+            blurred={privacyMode}
           />
         </div>
       )}
+
+      {/* Interactive Detail Modal */}
+      <TransactionModal
+        tx={selectedTx}
+        account={selectedAccount}
+        onClose={() => setSelectedTx(null)}
+      />
     </div>
   );
 }
@@ -185,17 +269,27 @@ function Stat({
   label,
   value,
   tone,
+  blurred = false,
 }: {
   label: string;
   value: string;
   tone: 'emerald' | 'ink' | 'brand';
+  blurred?: boolean;
 }) {
   const toneClass =
-    tone === 'emerald' ? 'text-emerald-600' : tone === 'brand' ? 'text-brand-600' : 'text-ink-800';
+    tone === 'emerald'
+      ? 'text-emerald-600 dark:text-emerald-400'
+      : tone === 'brand'
+        ? 'text-brand-600 dark:text-brand-400'
+        : 'text-ink-800 dark:text-ink-100';
   return (
     <div>
-      <p className="text-xs font-semibold uppercase tracking-wide text-ink-500">{label}</p>
-      <p className={`mt-1 font-display text-xl font-bold ${toneClass}`}>{value}</p>
+      <p className="text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400">{label}</p>
+      <p className={`mt-1 font-display text-xl font-bold ${toneClass} transition duration-200 ${
+        blurred ? 'select-none filter blur-[5px]' : ''
+      }`}>
+        {blurred ? '$••••••' : value}
+      </p>
     </div>
   );
 }

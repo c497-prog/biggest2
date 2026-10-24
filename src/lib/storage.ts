@@ -18,6 +18,8 @@ export function loadState(): BankState {
       accounts: parsed.accounts ?? SEED_STATE.accounts,
       transactions: parsed.transactions ?? SEED_STATE.transactions,
       alerts: parsed.alerts ?? SEED_STATE.alerts,
+      savingsGoals: parsed.savingsGoals ?? SEED_STATE.savingsGoals,
+      cards: parsed.cards ?? SEED_STATE.cards,
     };
   } catch {
     return structuredClone(SEED_STATE);

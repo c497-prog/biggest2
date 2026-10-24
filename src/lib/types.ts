@@ -42,6 +42,7 @@ export interface Preferences {
   pushAlerts: boolean;
   twoStepChallenge: boolean;
   paperlessStatements: boolean;
+  theme: 'light' | 'dark' | 'system';
 }
 
 export interface SecurityAlert {
@@ -56,10 +57,44 @@ export interface SecurityAlert {
   dismissed: boolean;
 }
 
+export interface SavingsGoal {
+  id: string;
+  name: string;
+  targetAmount: number;
+  currentAmount: number;
+  category: string;
+  targetDate: string;
+  color: string;
+  icon?: string;
+}
+
+export interface CardSettings {
+  id: string;
+  accountId: string;
+  cardNumber: string; // full simulated 16 digits
+  cardHolder: string;
+  expiry: string;
+  cvv: string;
+  isFrozen: boolean;
+  onlinePurchases: boolean;
+  internationalTx: boolean;
+  dailySpendingLimit: number;
+  currentSpending: number;
+}
+
+export interface ToastNotification {
+  id: string;
+  title: string;
+  message?: string;
+  type: 'success' | 'info' | 'warning' | 'error';
+}
+
 export interface BankState {
   customer: Customer;
   accounts: Account[];
   transactions: Transaction[];
   preferences: Preferences;
   alerts: SecurityAlert[];
+  savingsGoals: SavingsGoal[];
+  cards: CardSettings[];
 }

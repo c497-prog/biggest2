@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { BankProvider, useBank } from '@/context/BankContext';
 import { LoginPage } from '@/pages/LoginPage';
 import { DashboardShell, type ViewKey } from '@/components/DashboardShell';
@@ -7,12 +7,14 @@ import { TransferView } from '@/pages/TransferView';
 import { TransactionsView } from '@/pages/TransactionsView';
 import { SecurityView } from '@/pages/SecurityView';
 import { ProfileView } from '@/pages/ProfileView';
-import type { Account } from '@/lib/types';
+import { TransactionModal } from '@/components/TransactionModal';
+import type { Account, Transaction } from '@/lib/types';
 
 function AuthedApp() {
   const { state } = useBank();
   const [view, setView] = useState<ViewKey>('overview');
   const [quickFrom, setQuickFrom] = useState<Account | null>(null);
+  const [paletteSelectedTx, setPaletteSelectedTx] = useState<Transaction | null>(null);
 
   const activeAlerts = state.alerts.filter((a) => !a.dismissed).length;
 
@@ -20,6 +22,11 @@ function AuthedApp() {
     setView(v);
     if (v !== 'transfer') setQuickFrom(null);
   };
+
+  const selectedAccount = useMemo(() => {
+    if (!paletteSelectedTx) return undefined;
+    return state.accounts.find((a) => a.id === paletteSelectedTx.accountId);
+  }, [paletteSelectedTx, state.accounts]);
 
   let content;
   if (view === 'overview') {
@@ -42,9 +49,23 @@ function AuthedApp() {
   }
 
   return (
-    <DashboardShell active={view} onNavigate={navigate} alertBadge={activeAlerts}>
-      {content}
-    </DashboardShell>
+    <>
+      <DashboardShell
+        active={view}
+        onNavigate={navigate}
+        alertBadge={activeAlerts}
+        onSelectTransaction={(tx) => setPaletteSelectedTx(tx)}
+      >
+        {content}
+      </DashboardShell>
+
+      {/* Global modal when a transaction is opened from Command Palette */}
+      <TransactionModal
+        tx={paletteSelectedTx}
+        account={selectedAccount}
+        onClose={() => setPaletteSelectedTx(null)}
+      />
+    </>
   );
 }
 

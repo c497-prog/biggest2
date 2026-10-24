@@ -42,31 +42,31 @@ export function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center p-4 sm:items-center">
       <div
-        className="absolute inset-0 bg-ink-950/40 backdrop-blur-sm animate-fade-in"
+        className="absolute inset-0 bg-ink-950/50 backdrop-blur-sm animate-fade-in"
         onClick={() => closeOnBackdrop && onClose()}
         aria-hidden
       />
       <div
         role="dialog"
         aria-modal="true"
-        className={`relative w-full ${width} animate-scale-in rounded-2xl bg-white shadow-xl ring-1 ring-ink-200`}
+        className={`relative w-full ${width} animate-scale-in rounded-2xl bg-white shadow-2xl ring-1 ring-ink-200 dark:bg-ink-900 dark:ring-ink-800`}
       >
         <div className="flex items-start justify-between gap-4 px-5 pt-5">
           <div className="flex items-center gap-3">
             {icon}
-            {title && <h2 className="font-display text-lg font-bold text-ink-900">{title}</h2>}
+            {title && <h2 className="font-display text-lg font-bold text-ink-900 dark:text-ink-100">{title}</h2>}
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-ink-400 transition hover:bg-ink-100 hover:text-ink-700"
+            className="rounded-lg p-1.5 text-ink-400 transition hover:bg-ink-100 hover:text-ink-700 dark:hover:bg-ink-800 dark:hover:text-ink-200 cursor-pointer"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
-        <div className="px-5 py-4">{children}</div>
+        <div className="px-5 py-4 text-ink-800 dark:text-ink-200">{children}</div>
         {footer && (
-          <div className="flex items-center justify-end gap-2 border-t border-ink-100 px-5 py-4">
+          <div className="flex items-center justify-end gap-2 border-t border-ink-100 px-5 py-4 dark:border-ink-800">
             {footer}
           </div>
         )}

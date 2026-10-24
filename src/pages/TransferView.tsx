@@ -71,9 +71,11 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="font-display text-2xl font-extrabold text-ink-900">Transfer funds</h1>
-        <p className="mt-1 text-sm text-ink-500">
-          Move money instantly between your Everstream accounts.
+        <h1 className="font-display text-2xl font-extrabold text-ink-900 dark:text-ink-100">
+          Transfer funds
+        </h1>
+        <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">
+          Move money instantly between your Everstream accounts with zero clearing fees.
         </p>
       </div>
 
@@ -99,8 +101,11 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
                 ))}
               </select>
               {from && (
-                <p className="mt-1.5 text-xs text-ink-500">
-                  Available: <span className="font-semibold text-ink-700">{fmtMoney(from.balance)}</span>
+                <p className="mt-1.5 text-xs text-ink-500 dark:text-ink-400">
+                  Available:{' '}
+                  <span className="font-semibold text-ink-700 dark:text-ink-200">
+                    {fmtMoney(from.balance)}
+                  </span>
                 </p>
               )}
             </div>
@@ -109,7 +114,7 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
             <div className="flex justify-center">
               <button
                 onClick={swap}
-                className="rounded-full border border-ink-200 bg-white p-2 text-ink-500 shadow-soft transition hover:bg-brand-50 hover:text-brand-600"
+                className="rounded-full border border-ink-200 bg-white p-2 text-ink-500 shadow-soft transition hover:bg-brand-50 hover:text-brand-600 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-400 dark:hover:bg-brand-950/60 dark:hover:text-brand-400 cursor-pointer"
                 aria-label="Swap accounts"
               >
                 <ArrowRight className="h-4 w-4 rotate-90" />
@@ -157,7 +162,7 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
                   <button
                     key={q}
                     onClick={() => setAmount(String(q))}
-                    className="rounded-lg border border-ink-200 bg-white px-3 py-1 text-xs font-semibold text-ink-600 transition hover:border-brand-300 hover:text-brand-600"
+                    className="rounded-lg border border-ink-200 bg-white px-3 py-1 text-xs font-semibold text-ink-600 transition hover:border-brand-300 hover:text-brand-600 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-300 dark:hover:border-brand-500 dark:hover:text-brand-300 cursor-pointer"
                   >
                     +{fmtMoney(q)}
                   </button>
@@ -165,7 +170,7 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
                 {from && (
                   <button
                     onClick={() => setAmount(String(from.balance))}
-                    className="rounded-lg border border-ink-200 bg-white px-3 py-1 text-xs font-semibold text-ink-600 transition hover:border-brand-300 hover:text-brand-600"
+                    className="rounded-lg border border-ink-200 bg-white px-3 py-1 text-xs font-semibold text-ink-600 transition hover:border-brand-300 hover:text-brand-600 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-300 dark:hover:border-brand-500 dark:hover:text-brand-300 cursor-pointer"
                   >
                     Max
                   </button>
@@ -180,13 +185,13 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
                 className="input"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                placeholder="e.g. Monthly savings"
+                placeholder="e.g. Monthly savings contribution"
                 maxLength={48}
               />
             </div>
 
             {error && (
-              <div className="flex items-start gap-2 rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700 ring-1 ring-rose-200">
+              <div className="flex items-start gap-2 rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700 ring-1 ring-rose-200 dark:bg-rose-950/60 dark:text-rose-300 dark:ring-rose-800">
                 <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
                 <span>{error}</span>
               </div>
@@ -195,7 +200,7 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
             <button
               onClick={openConfirm}
               disabled={numericAmount <= 0 || fromId === toId}
-              className="btn-primary w-full"
+              className="btn-primary w-full cursor-pointer"
             >
               Review transfer <ArrowRight className="h-4 w-4" />
             </button>
@@ -204,34 +209,38 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
 
         {/* Summary */}
         <div className="card h-fit p-6 lg:col-span-2">
-          <h3 className="font-display text-base font-bold text-ink-900">Transfer summary</h3>
+          <h3 className="font-display text-base font-bold text-ink-900 dark:text-ink-100">
+            Transfer summary
+          </h3>
           <dl className="mt-4 space-y-3 text-sm">
             <div className="flex justify-between">
-              <dt className="text-ink-500">From</dt>
-              <dd className="font-semibold text-ink-800">{from?.name ?? '—'}</dd>
+              <dt className="text-ink-500 dark:text-ink-400">From</dt>
+              <dd className="font-semibold text-ink-800 dark:text-ink-200">{from?.name ?? '—'}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-ink-500">To</dt>
-              <dd className="font-semibold text-ink-800">{to?.name ?? '—'}</dd>
+              <dt className="text-ink-500 dark:text-ink-400">To</dt>
+              <dd className="font-semibold text-ink-800 dark:text-ink-200">{to?.name ?? '—'}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-ink-500">Amount</dt>
-              <dd className="font-display font-bold text-ink-900">{fmtMoney(numericAmount)}</dd>
+              <dt className="text-ink-500 dark:text-ink-400">Amount</dt>
+              <dd className="font-display font-bold text-ink-900 dark:text-ink-100">
+                {fmtMoney(numericAmount)}
+              </dd>
             </div>
-            <div className="h-px bg-ink-100" />
+            <div className="h-px bg-ink-100 dark:bg-ink-800" />
             <div className="flex justify-between">
-              <dt className="text-ink-500">Fee</dt>
-              <dd className="font-semibold text-emerald-600">$0.00</dd>
+              <dt className="text-ink-500 dark:text-ink-400">Fee</dt>
+              <dd className="font-semibold text-emerald-600 dark:text-emerald-400">$0.00</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-ink-500">Estimated arrival</dt>
-              <dd className="font-semibold text-ink-800">Instant</dd>
+              <dt className="text-ink-500 dark:text-ink-400">Estimated arrival</dt>
+              <dd className="font-semibold text-ink-800 dark:text-ink-200">Instant</dd>
             </div>
           </dl>
-          <div className="mt-5 flex items-start gap-2 rounded-xl bg-ink-50 p-3 text-xs text-ink-500 ring-1 ring-ink-100">
-            <Info className="mt-0.3 h-4 w-4 shrink-0 text-ink-400" />
+          <div className="mt-5 flex items-start gap-2 rounded-xl bg-ink-50 p-3 text-xs text-ink-500 ring-1 ring-ink-100 dark:bg-ink-800/50 dark:text-ink-400 dark:ring-ink-700/50">
+            <Info className="mt-0.5 h-4 w-4 shrink-0 text-ink-400 dark:text-ink-500" />
             <span>
-              Transfers between Everstream accounts are processed instantly with no fees.
+              Transfers between Everstream accounts are processed instantly with zero clearing fees.
             </span>
           </div>
         </div>
@@ -243,7 +252,7 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
         onClose={() => setPending(null)}
         title="Confirm transfer"
         icon={
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-50 text-brand-600 dark:bg-brand-950/60 dark:text-brand-400">
             <ArrowRight className="h-5 w-5" />
           </span>
         }
@@ -260,27 +269,35 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
       >
         {pending && (
           <div className="space-y-3">
-            <p className="text-sm text-ink-600">Please confirm the details of your transfer.</p>
-            <div className="rounded-xl bg-ink-50 p-4 ring-1 ring-ink-100">
+            <p className="text-sm text-ink-600 dark:text-ink-300">
+              Please confirm the details of your transfer.
+            </p>
+            <div className="rounded-xl bg-ink-50 p-4 ring-1 ring-ink-100 dark:bg-ink-800/50 dark:ring-ink-700/50">
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-xs text-ink-500">From</p>
-                  <p className="truncate text-sm font-semibold text-ink-800">{pending.from.name}</p>
+                  <p className="text-xs text-ink-500 dark:text-ink-400">From</p>
+                  <p className="truncate text-sm font-semibold text-ink-800 dark:text-ink-100">
+                    {pending.from.name}
+                  </p>
                 </div>
                 <ArrowRight className="h-4 w-4 shrink-0 text-ink-400" />
                 <div className="min-w-0">
-                  <p className="text-xs text-ink-500">To</p>
-                  <p className="truncate text-sm font-semibold text-ink-800">{pending.to.name}</p>
+                  <p className="text-xs text-ink-500 dark:text-ink-400">To</p>
+                  <p className="truncate text-sm font-semibold text-ink-800 dark:text-ink-100">
+                    {pending.to.name}
+                  </p>
                 </div>
               </div>
               <div className="mt-3 flex items-end justify-between">
-                <p className="text-xs text-ink-500">Amount</p>
-                <p className="font-display text-2xl font-extrabold text-ink-900">
+                <p className="text-xs text-ink-500 dark:text-ink-400">Amount</p>
+                <p className="font-display text-2xl font-extrabold text-ink-900 dark:text-ink-100">
                   {fmtMoney(pending.amount)}
                 </p>
               </div>
               {pending.note && (
-                <p className="mt-2 text-xs text-ink-500">Memo: “{pending.note}”</p>
+                <p className="mt-2 text-xs text-ink-500 dark:text-ink-400">
+                  Memo: “{pending.note}”
+                </p>
               )}
             </div>
           </div>
@@ -293,7 +310,7 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
         onClose={() => setSuccess(null)}
         title="Transfer complete"
         icon={
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400">
             <CheckCircle2 className="h-5 w-5" />
           </span>
         }
@@ -304,7 +321,7 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
         }
       >
         {success && (
-          <p className="text-sm text-ink-600">
+          <p className="text-sm text-ink-600 dark:text-ink-300">
             {fmtMoney(success.amount)} moved from {success.from} to {success.to}. Your balances and
             transaction history have been updated.
           </p>

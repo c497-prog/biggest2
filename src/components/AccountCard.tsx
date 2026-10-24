@@ -53,7 +53,7 @@ export function AccountChip({ account }: { account: Account }) {
   return (
     <span className="inline-flex items-center gap-1.5 text-sm">
       <span className={`h-2 w-2 rounded-full bg-gradient-to-br ${account.color}`} />
-      <span className="font-medium text-ink-700">{account.name}</span>
+      <span className="font-medium text-ink-700 dark:text-ink-300">{account.name}</span>
     </span>
   );
 }

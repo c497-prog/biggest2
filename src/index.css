@@ -6,40 +6,43 @@
   :root {
     color-scheme: light;
   }
+  html.dark {
+    color-scheme: dark;
+  }
   html,
   body,
   #root {
     height: 100%;
   }
   body {
-    @apply bg-ink-100 font-sans text-ink-800 antialiased;
+    @apply bg-ink-100 font-sans text-ink-800 antialiased transition-colors duration-200 dark:bg-ink-950 dark:text-ink-100;
   }
   ::selection {
-    @apply bg-brand-200/60 text-brand-900;
+    @apply bg-brand-200/60 text-brand-900 dark:bg-brand-500/30 dark:text-brand-200;
   }
 }
 
 @layer components {
   .card {
-    @apply rounded-2xl bg-white shadow-card ring-1 ring-ink-200/60;
+    @apply rounded-2xl bg-white shadow-card ring-1 ring-ink-200/60 transition-colors duration-200 dark:bg-ink-900/90 dark:ring-ink-800/80 dark:shadow-none;
   }
   .input {
-    @apply w-full rounded-xl border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-400 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10;
+    @apply w-full rounded-xl border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-400 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:border-ink-700 dark:bg-ink-900/90 dark:text-ink-100 dark:placeholder:text-ink-500;
   }
   .label {
-    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink-500;
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400;
   }
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-4 disabled:cursor-not-allowed disabled:opacity-50;
   }
   .btn-primary {
-    @apply btn bg-brand-600 text-white shadow-soft hover:bg-brand-700 focus:ring-brand-500/30;
+    @apply btn bg-brand-600 text-white shadow-soft hover:bg-brand-700 focus:ring-brand-500/30 dark:bg-brand-500 dark:hover:bg-brand-600;
   }
   .btn-ghost {
-    @apply btn bg-transparent text-ink-600 hover:bg-ink-100 focus:ring-ink-200;
+    @apply btn bg-transparent text-ink-600 hover:bg-ink-100 focus:ring-ink-200 dark:text-ink-300 dark:hover:bg-ink-800/70 dark:focus:ring-ink-700;
   }
   .btn-outline {
-    @apply btn border border-ink-200 bg-white text-ink-700 hover:bg-ink-50 focus:ring-ink-200;
+    @apply btn border border-ink-200 bg-white text-ink-700 hover:bg-ink-50 focus:ring-ink-200 dark:border-ink-700 dark:bg-ink-900/90 dark:text-ink-200 dark:hover:bg-ink-800/90;
   }
   .pill {
     @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold;
@@ -52,7 +55,7 @@
     height: 8px;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-ink-300;
+    @apply rounded-full bg-ink-300 dark:bg-ink-700;
   }
   .scrollbar-thin::-webkit-scrollbar-track {
     background: transparent;
