@@ -1,0 +1,65 @@
+export type AccountType = 'checking' | 'savings' | 'sep_ira';
+
+export type TransactionStatus = 'Completed' | 'Pending' | 'Failed';
+export type TransactionKind = 'credit' | 'debit';
+
+export interface Account {
+  id: string;
+  name: string;
+  type: AccountType;
+  balance: number;
+  number: string; // masked display
+  color: string; // tailwind gradient classes
+  accent: string; // tailwind text/border accent class
+}
+
+export interface Transaction {
+  id: string;
+  date: string; // ISO yyyy-mm-dd
+  description: string;
+  merchant: string;
+  amount: number; // positive number
+  kind: TransactionKind;
+  status: TransactionStatus;
+  accountId: string;
+  category: string;
+}
+
+export interface Customer {
+  fullName: string;
+  preferredName: string;
+  email: string;
+  phone: string;
+  address: string;
+  occupation: string;
+  memberSince: string;
+  avatarInitials: string;
+}
+
+export interface Preferences {
+  language: 'en' | 'es' | 'fr';
+  emailAlerts: boolean;
+  pushAlerts: boolean;
+  twoStepChallenge: boolean;
+  paperlessStatements: boolean;
+}
+
+export interface SecurityAlert {
+  id: string;
+  title: string;
+  detail: string;
+  amount: number;
+  merchant: string;
+  location: string;
+  time: string;
+  acknowledged: boolean;
+  dismissed: boolean;
+}
+
+export interface BankState {
+  customer: Customer;
+  accounts: Account[];
+  transactions: Transaction[];
+  preferences: Preferences;
+  alerts: SecurityAlert[];
+}
