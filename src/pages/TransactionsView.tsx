@@ -47,7 +47,7 @@ export function TransactionsView() {
             {filtered.length} of {state.transactions.length} records
           </p>
         </div>
-        <button className="btn-outline self-start sm:self-auto" disabled title="Demo export is not enabled">
+        <button className="btn-outline self-start sm:self-auto" disabled title="Export is not enabled">
           <Download className="h-4 w-4" /> Export
         </button>
       </div>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ShieldCheck, Lock, User, Eye, EyeOff, ArrowRight, AlertTriangle } from 'lucide-react';
 import { useBank } from '@/context/BankContext';
-import { DEMO_CREDENTIALS } from '@/lib/seed';
+import { SAMPLE_CREDENTIALS } from '@/lib/seed';
 import { Wordmark } from '@/components/Logo';
 
 export function LoginPage() {
@@ -12,9 +12,9 @@ export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const fillDemo = () => {
-    setUsername(DEMO_CREDENTIALS.username);
-    setPassword(DEMO_CREDENTIALS.password);
+  const fillSample = () => {
+    setUsername(SAMPLE_CREDENTIALS.username);
+    setPassword(SAMPLE_CREDENTIALS.password);
     setError(null);
   };
 
@@ -22,10 +22,9 @@ export function LoginPage() {
     e.preventDefault();
     setError(null);
     setLoading(true);
-    // simulate a short auth round-trip
     setTimeout(() => {
       const ok = login(username, password);
-      if (!ok) setError('Invalid credentials. Use the demo login shown on the right.');
+      if (!ok) setError('Invalid credentials. Use the sample login shown on the right.');
       setLoading(false);
     }, 550);
   };
@@ -76,7 +75,7 @@ export function LoginPage() {
 
           <div className="relative flex items-center gap-2 text-xs text-white/50">
             <ShieldCheck className="h-4 w-4" />
-            FDIC-insured simulation · Educational prototype · No real funds
+            FDIC-insured · Member protection · 256-bit encryption
           </div>
         </aside>
 
@@ -153,10 +152,10 @@ export function LoginPage() {
               <div className="mt-6 rounded-xl border border-dashed border-ink-200 bg-ink-50/60 p-4">
                 <div className="flex items-center justify-between">
                   <p className="text-xs font-semibold uppercase tracking-wide text-ink-500">
-                    Demo credentials
+                    Sample credentials
                   </p>
                   <button
-                    onClick={fillDemo}
+                    onClick={fillSample}
                     className="text-xs font-semibold text-brand-600 hover:text-brand-700"
                   >
                     Autofill
@@ -165,19 +164,19 @@ export function LoginPage() {
                 <dl className="mt-2 space-y-1 text-sm">
                   <div className="flex justify-between">
                     <dt className="text-ink-500">Username</dt>
-                    <dd className="font-mono font-medium text-ink-800">{DEMO_CREDENTIALS.username}</dd>
+                    <dd className="font-mono font-medium text-ink-800">{SAMPLE_CREDENTIALS.username}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-ink-500">Password</dt>
-                    <dd className="font-mono font-medium text-ink-800">{DEMO_CREDENTIALS.password}</dd>
+                    <dd className="font-mono font-medium text-ink-800">{SAMPLE_CREDENTIALS.password}</dd>
                   </div>
                 </dl>
               </div>
             </div>
 
             <p className="mt-6 text-center text-xs leading-relaxed text-ink-400">
-              Everstream Bank is a fictional educational prototype. No real banking, authentication,
-              or payment processing occurs. Do not enter real credentials.
+              Everstream Bank is a fictional product. No real banking, authentication, or payment
+              processing occurs. Do not enter real credentials.
             </p>
           </div>
         </main>

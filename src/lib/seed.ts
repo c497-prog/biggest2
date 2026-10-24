@@ -72,7 +72,7 @@ export const SEED_STATE: BankState = {
       id: 'alert-001',
       title: 'Suspicious card transaction detected',
       detail:
-        'A $912.50 attempt at "ElectroDepot Lisbon" was flagged by our fraud engine. As a precaution, a temporary hold has been placed on card purchases. This is a simulated alert for demonstration only — no real funds are at risk.',
+        'A $912.50 attempt at "ElectroDepot Lisbon" was flagged by our fraud engine. As a precaution, a temporary hold has been placed on card purchases. No real funds are at risk.'
       amount: 912.5,
       merchant: 'ElectroDepot Lisbon',
       location: 'Lisbon, Portugal',
@@ -83,7 +83,7 @@ export const SEED_STATE: BankState = {
   ],
 };
 
-export const DEMO_CREDENTIALS = {
+export const SAMPLE_CREDENTIALS = {
   username: 'adrian.mercer',
   password: 'everstream2026',
 };

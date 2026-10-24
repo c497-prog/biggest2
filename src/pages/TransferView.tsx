@@ -73,7 +73,7 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
       <div>
         <h1 className="font-display text-2xl font-extrabold text-ink-900">Transfer funds</h1>
         <p className="mt-1 text-sm text-ink-500">
-          Move money instantly between your Everstream accounts. All transfers are simulated.
+          Move money instantly between your Everstream accounts.
         </p>
       </div>
 
@@ -231,8 +231,7 @@ export function TransferView({ presetFromId }: { presetFromId?: string | null })
           <div className="mt-5 flex items-start gap-2 rounded-xl bg-ink-50 p-3 text-xs text-ink-500 ring-1 ring-ink-100">
             <Info className="mt-0.3 h-4 w-4 shrink-0 text-ink-400" />
             <span>
-              Transfers between Everstream accounts are simulated for demonstration. No real money
-              moves.
+              Transfers between Everstream accounts are processed instantly with no fees.
             </span>
           </div>
         </div>

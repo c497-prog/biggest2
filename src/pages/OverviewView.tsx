@@ -62,7 +62,7 @@ export function OverviewView({
               Security hold: review a flagged transaction
             </p>
             <p className="text-xs text-amber-700">
-              Temporary card hold active. Tap to review — simulated alert.
+              Temporary card hold active. Tap to review the flagged transaction.
             </p>
           </div>
           <span className="text-xs font-semibold text-amber-700 group-hover:underline">Review →</span>

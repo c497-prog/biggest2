@@ -12,7 +12,7 @@ const LANGUAGES: { code: Preferences['language']; label: string; flag: string }[
 ];
 
 export function ProfileView() {
-  const { state, updatePreferences, resetDemo } = useBank();
+  const { state, updatePreferences, resetData } = useBank();
   const c = state.customer;
   const p = state.preferences;
   const [resetOpen, setResetOpen] = useState(false);
@@ -140,16 +140,16 @@ export function ProfileView() {
         <div className="card p-6">
           <div className="flex items-center gap-2">
             <RotateCcw className="h-5 w-5 text-rose-500" />
-            <h3 className="font-display text-base font-bold text-ink-900">Demo data</h3>
+            <h3 className="font-display text-base font-bold text-ink-900">Account data</h3>
           </div>
           <p className="mt-1 text-sm text-ink-500">
-            Restore balances, transactions, and alerts to their original demo values.
+            Restore balances, transactions, and alerts to their original values.
           </p>
           <button
             onClick={() => setResetOpen(true)}
             className="btn-outline mt-4 border-rose-200 text-rose-600 hover:bg-rose-50"
           >
-            <RotateCcw className="h-4 w-4" /> Reset demo data
+            <RotateCcw className="h-4 w-4" /> Reset account data
           </button>
         </div>
       </div>
@@ -157,7 +157,7 @@ export function ProfileView() {
       <Modal
         open={resetOpen}
         onClose={() => setResetOpen(false)}
-        title="Reset demo data?"
+        title="Reset account data?"
         size="sm"
         icon={
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-rose-50 text-rose-600">
@@ -172,7 +172,7 @@ export function ProfileView() {
             <button
               className="btn-primary bg-rose-600 hover:bg-rose-700 focus:ring-rose-500/30"
               onClick={() => {
-                resetDemo();
+                resetData();
                 setResetOpen(false);
               }}
             >
@@ -182,8 +182,8 @@ export function ProfileView() {
         }
       >
         <p className="text-sm text-ink-600">
-          This restores all accounts, transactions, and alerts to their original demo state. Any
-          transfers you've made will be undone.
+          This restores all accounts, transactions, and alerts to their original state. Any transfers
+          you've made will be undone.
         </p>
       </Modal>
     </div>

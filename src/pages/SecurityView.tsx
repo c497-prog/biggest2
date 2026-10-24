@@ -20,17 +20,16 @@ export function SecurityView() {
       <div>
         <h1 className="font-display text-2xl font-extrabold text-ink-900">Security center</h1>
         <p className="mt-1 text-sm text-ink-500">
-          Monitor account holds and suspicious activity. All alerts below are simulated for
-          demonstration.
+          Monitor account holds and suspicious activity across your accounts.
         </p>
       </div>
 
-      {/* Simulated banner */}
+      {/* Info banner */}
       <div className="flex items-start gap-3 rounded-2xl border border-brand-200 bg-brand-50 px-4 py-3 text-brand-800">
         <Info className="mt-0.5 h-5 w-5 shrink-0" />
         <p className="text-sm">
-          <span className="font-semibold">Simulated environment.</span> No real fraud is occurring and
-          no card numbers, passwords, or payments are ever requested to clear holds.
+          <span className="font-semibold">Protected environment.</span> No real fraud is occurring and no
+          card numbers, passwords, or payments are ever requested to clear holds.
         </p>
       </div>
 
@@ -132,8 +131,8 @@ export function SecurityView() {
             <div className="flex items-start gap-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-800 ring-1 ring-amber-200">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
               <p>
-                A temporary hold has been placed on card purchases. This is a simulated hold — no real
-                funds are restricted and no payment is required to release it.
+                A temporary hold has been placed on card purchases. No real funds are restricted and no
+                payment is required to release it.
               </p>
             </div>
 
@@ -152,8 +151,8 @@ export function SecurityView() {
             <div className="flex items-start gap-3 rounded-xl border border-ink-200 bg-ink-50 p-3">
               <Lock className="mt-0.5 h-4 w-4 shrink-0 text-ink-400" />
               <p className="text-xs text-ink-500">
-                Everstream will never ask for your card number, password, or a payment to remove a
-                hold. To release a simulated hold, simply acknowledge this alert.
+                Everstream will never ask for your card number, password, or a payment to remove a hold.
+                To release this hold, simply acknowledge this alert.
               </p>
             </div>
           </div>

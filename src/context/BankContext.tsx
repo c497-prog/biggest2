@@ -23,7 +23,7 @@ interface BankContextValue {
   acknowledgeAlert: (id: string) => void;
   dismissAlert: (id: string) => void;
   updatePreferences: (patch: Partial<Preferences>) => void;
-  resetDemo: () => void;
+  resetData: () => void;
 }
 
 const BankContext = createContext<BankContextValue | null>(null);
@@ -156,7 +156,7 @@ export function BankProvider({ children }: { children: ReactNode }) {
     setState((prev) => ({ ...prev, preferences: { ...prev.preferences, ...patch } }));
   }, []);
 
-  const resetDemo = useCallback(() => {
+  const resetData = useCallback(() => {
     resetState();
     setState(structuredClone(SEED_STATE));
   }, []);
@@ -178,9 +178,9 @@ export function BankProvider({ children }: { children: ReactNode }) {
       acknowledgeAlert,
       dismissAlert,
       updatePreferences,
-      resetDemo,
+      resetData,
     }),
-    [state, totalBalance, authenticated, login, logout, transfer, validateTransfer, acknowledgeAlert, dismissAlert, updatePreferences, resetDemo],
+    [state, totalBalance, authenticated, login, logout, transfer, validateTransfer, acknowledgeAlert, dismissAlert, updatePreferences, resetData],
   );
 
   return <BankContext.Provider value={value}>{children}</BankContext.Provider>;
