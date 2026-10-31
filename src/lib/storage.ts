@@ -1,7 +1,7 @@
 import type { BankState } from './types';
 import { SEED_STATE } from './seed';
 
-const KEY = 'everstream.bank.state.v1';
+const KEY = 'everstream.bank.state.v2';
 
 export function loadState(): BankState {
   if (typeof window === 'undefined') return structuredClone(SEED_STATE);
