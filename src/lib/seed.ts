@@ -2,14 +2,14 @@ import type { BankState } from './types';
 
 export const SEED_STATE: BankState = {
   customer: {
-    fullName: 'Adrian Mercer',
-    preferredName: 'Adrian',
-    email: 'adrian.mercer@everstream.demo',
+    fullName: 'Lillian Raymond',
+    preferredName: 'Lillian',
+    email: 'lillian.raymond@everstream.demo',
     phone: '+1 (415) 555-0182',
     address: '218 Harborview Lane, San Francisco, CA 94109',
     occupation: 'Software Engineer',
     memberSince: '2019-03-14',
-    avatarInitials: 'AM',
+    avatarInitials: 'LR',
   },
   accounts: [
     {
@@ -77,7 +77,7 @@ export const SEED_STATE: BankState = {
       amount: 912.5,
       merchant: 'ElectroDepot Lisbon',
       location: 'Lisbon, Portugal',
-      time: '2026-10-24 08:14 UTC',
+      time: '2026-10-30 08:14 UTC',
       acknowledged: false,
       dismissed: false,
     },
@@ -116,7 +116,7 @@ export const SEED_STATE: BankState = {
       id: 'card-001',
       accountId: 'acc-checking',
       cardNumber: '4532 8912 6743 4471',
-      cardHolder: 'Adrian Mercer',
+      cardHolder: 'Lillian Raymond',
       expiry: '10/29',
       cvv: '842',
       isFrozen: false,
@@ -129,6 +129,6 @@ export const SEED_STATE: BankState = {
 };
 
 export const SAMPLE_CREDENTIALS = {
-  username: 'adrian.mercer',
+  username: 'lillian.raymond',
   password: 'everstream2026',
 };

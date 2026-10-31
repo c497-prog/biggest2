@@ -106,7 +106,7 @@ export function LoginPage() {
                       className="input pl-9"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      placeholder="adrian.mercer"
+                      placeholder="lillian.raymond"
                       autoComplete="username"
                     />
                   </div>
