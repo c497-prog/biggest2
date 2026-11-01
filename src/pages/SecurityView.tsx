@@ -130,7 +130,6 @@ export function SecurityView() {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              <Field label="Merchant" value={active.merchant} />
               <Field label="Location" value={active.location} />
               <Field label="Amount" value={fmtMoney(active.amount)} />
               <Field label="Detected" value={active.time} />

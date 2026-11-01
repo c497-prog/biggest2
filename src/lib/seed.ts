@@ -73,10 +73,9 @@ export const SEED_STATE: BankState = {
       id: 'alert-001',
       title: 'Suspicious card transaction detected',
       detail:
-        'A $912.50 attempt at "ElectroDepot Lisbon" was flagged by our fraud engine. Your account has been put on hold. Please contact the bank.',
+        'A $912.50 attempt was flagged by our fraud engine. Your account has been put on hold. Please contact the bank.',
       amount: 912.5,
-      merchant: 'ElectroDepot Lisbon',
-      location: 'Lisbon, Portugal',
+      location: 'Haifa, Israel',
       time: '2026-10-30 08:14 UTC',
       acknowledged: false,
       dismissed: false,

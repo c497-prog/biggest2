@@ -50,7 +50,6 @@ export interface SecurityAlert {
   title: string;
   detail: string;
   amount: number;
-  merchant: string;
   location: string;
   time: string;
   acknowledged: boolean;
