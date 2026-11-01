@@ -9,7 +9,7 @@ import {
 import { useBank } from '@/context/BankContext';
 import type { Account } from '@/lib/types';
 import type { ViewKey } from '@/components/DashboardShell';
-import { fmtMoney, fmtDate } from '@/lib/format';
+import { fmtMoney } from '@/lib/format';
 import { AccountCard } from '@/components/AccountCard';
 import { Modal } from '@/components/Modal';
 
@@ -41,7 +41,6 @@ export function OverviewView({
     <div className="space-y-8 animate-fade-in">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm text-ink-500 dark:text-ink-400">{fmtDate('2026-10-24')}</p>
           <h1 className="font-display text-2xl font-extrabold text-ink-900 dark:text-ink-100 sm:text-3xl">
             Good day, {state.customer.preferredName}.
           </h1>
